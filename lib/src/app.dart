@@ -1,6 +1,6 @@
 import 'package:cinemapedia/src/features/movies/presentation/home_view.dart';
 import 'package:cinemapedia/src/theme/app_theme.dart';
-import 'package:cinemapedia/src/theme/router/go_router.dart';
+import 'package:cinemapedia/src/router/go_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
