@@ -2,6 +2,9 @@ import 'package:cinemapedia/src/features/movies/data/data_sources/movie_datasour
 import 'package:cinemapedia/src/features/movies/data/data_sources/remote_movie_datasource.dart';
 import 'package:cinemapedia/src/features/movies/domain/movie.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'movie_repository.g.dart';
 
 abstract class _IMovieRepository {
   Future<List<Movie>> getNowPlayingMovies({int page = 1});
@@ -21,9 +24,19 @@ class MovieRepository implements _IMovieRepository {
   }
 }
 
+// The older version of the provider.
+// // This is the provider for the movie repository.
+// final movieRepositoryProvider = Provider<MovieRepository>((ref) {
+//   final movieDataSource = RemoteMovieDataSource();
+
+//   return MovieRepository(dataSource: movieDataSource);
+// });
+
 // This is the provider for the movie repository.
-final movieRepositoryProvider = Provider<MovieRepository>((ref) {
+@riverpod
+MovieRepository movieRepository(MovieRepositoryRef ref) {
+
   final movieDataSource = RemoteMovieDataSource();
 
   return MovieRepository(dataSource: movieDataSource);
-});
+}

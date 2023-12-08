@@ -35,7 +35,7 @@ class MovieDBMovie {
 
   factory MovieDBMovie.fromPick(RequiredPick pick) => MovieDBMovie(
       adult: pick('adult').asBoolOrThrow(),
-      backdropPath: pick('backdrop_path').asStringOrThrow(),
+      backdropPath: pick('backdrop_path').asStringOrNull(),
       genreIds: pick('genre_ids').asListOrEmpty<int>((id) => id.asIntOrThrow()),
       id: pick('id').asIntOrThrow(),
       originalLanguage: pick('original_language').asStringOrThrow(),
