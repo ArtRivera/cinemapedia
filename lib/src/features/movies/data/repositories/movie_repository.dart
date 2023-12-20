@@ -1,13 +1,15 @@
 import 'package:cinemapedia/src/features/movies/data/data_sources/movie_datasource.dart';
 import 'package:cinemapedia/src/features/movies/data/data_sources/remote_movie_datasource.dart';
 import 'package:cinemapedia/src/features/movies/domain/movie.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'movie_repository.g.dart';
 
 abstract class _IMovieRepository {
-  Future<List<Movie>> getNowPlayingMovies({int page = 1});
+  Future<List<Movie>> getNowPlaying({int page = 1});
+  Future<List<Movie>> getPopular({int page = 1});
+  Future<List<Movie>> getUpcoming({int page = 1});
+  Future<List<Movie>> getTopRated({int page = 1});
 }
 
 class MovieRepository implements _IMovieRepository {
@@ -17,10 +19,23 @@ class MovieRepository implements _IMovieRepository {
   final MovieDataSource _movieDataSource;
 
   @override
-  Future<List<Movie>> getNowPlayingMovies({int page = 1}) async {
-    final movies = await _movieDataSource.getNowPlayingMovies(page: page);
+  Future<List<Movie>> getNowPlaying({int page = 1}) {
+    return _movieDataSource.getNowPlaying(page: page);
+  }
 
-    return movies;
+  @override
+  Future<List<Movie>> getPopular({int page = 1}) {
+    return _movieDataSource.getPopular(page: page);
+  }
+
+  @override
+  Future<List<Movie>> getTopRated({int page = 1}) {
+    return _movieDataSource.getTopRated(page: page);
+  }
+  
+  @override
+  Future<List<Movie>> getUpcoming({int page = 1}) {
+    return _movieDataSource.getUpcoming(page: page);
   }
 }
 

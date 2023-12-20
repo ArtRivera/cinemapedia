@@ -8,6 +8,7 @@ To set up the local environment, please do the following:
 
 - Copy .env.template and rename it to .env
 - Change the .env configs
+- Run `dart run build_runner watch` to enable code-generator for Riverpod library
 
 
 

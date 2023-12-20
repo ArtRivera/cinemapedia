@@ -6,12 +6,12 @@ part of 'home_view_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$moviesControllerHash() => r'2b87f2f3ae9a3095214b9b463dba8a79a23e1e15';
+String _$moviesControllerHash() => r'19c6f3dc608c0e42427f303a40506c62396e851a';
 
 /// See also [MoviesController].
 @ProviderFor(MoviesController)
 final moviesControllerProvider =
-    AutoDisposeNotifierProvider<MoviesController, List<Movie>>.internal(
+    AutoDisposeNotifierProvider<MoviesController, HomeMoviesState>.internal(
   MoviesController.new,
   name: r'moviesControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,6 +21,6 @@ final moviesControllerProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$MoviesController = AutoDisposeNotifier<List<Movie>>;
+typedef _$MoviesController = AutoDisposeNotifier<HomeMoviesState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

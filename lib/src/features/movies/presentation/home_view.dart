@@ -1,6 +1,5 @@
 import 'package:cinemapedia/src/common/common_widgets.dart';
 import 'package:cinemapedia/src/features/movies/presentation/providers/home_view_controller.dart';
-import 'package:cinemapedia/src/features/movies/presentation/providers/home_view_slide_show_provider.dart';
 import 'package:cinemapedia/src/features/movies/presentation/widgets/movie_horizontal_list_view.dart';
 import 'package:cinemapedia/src/features/movies/presentation/widgets/movie_slide_show.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +19,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
   void initState() {
     super.initState();
 
-    ref.read(moviesControllerProvider.notifier).getNowPlayingMovies();
+    ref.read(moviesControllerProvider.notifier).init();
   }
 
   @override
   Widget build(BuildContext context) {
-    final slideShowMovies = ref.watch(slideShowProvider);
     final movies = ref.watch(moviesControllerProvider);
 
     return Scaffold(
@@ -39,9 +37,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
               delegate: SliverChildListDelegate([
                 Column(
                   children: [
-                    MovieSlideShow(movies: slideShowMovies),
+                    MovieSlideShow(movies: movies.shortPopularMoviesList),
                     MovieHorizontalListView(
-                      movies: movies,
+                      movies: movies.nowPlayingMovies,
                       title: 'En cines',
                       subtitle: 'Lunes 7 de diciembre',
                       onEndReached: () {
@@ -52,20 +50,20 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       },
                     ),
                     MovieHorizontalListView(
-                      movies: movies,
+                      movies: movies.popularMovies,
                       title: 'Más populares',
-                      subtitle: 'Lunes 7 de diciembre',
+                      subtitle: 'Tendencias de la semana',
                       onEndReached: () {
                         print('onEndReached');
                         ref
                             .read(moviesControllerProvider.notifier)
-                            .getNowPlayingMovies();
+                            .getPopularMovies();
                       },
                     ),
                     MovieHorizontalListView(
-                      movies: movies,
+                      movies: movies.upcomingMovies,
                       title: 'Próximos estrenos',
-                      subtitle: 'Lunes 7 de diciembre',
+                      subtitle: 'Próximo viernes',
                       onEndReached: () {
                         print('onEndReached');
                         ref
@@ -74,9 +72,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       },
                     ),
                     MovieHorizontalListView(
-                      movies: movies,
-                      title: 'Mejores valoradas',
-                      subtitle: 'Lunes 7 de diciembre',
+                      movies: movies.topRatedMovies,
+                      title: 'Mejores calificadas',
+                      subtitle: 'Top películas',
                       onEndReached: () {
                         ref
                             .read(moviesControllerProvider.notifier)
@@ -88,7 +86,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
               ]),
             )
           ],
-
         ),
         bottomNavigationBar: const CustomBottomNavigationBar());
   }
