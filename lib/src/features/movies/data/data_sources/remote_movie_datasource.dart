@@ -1,6 +1,7 @@
 import 'package:cinemapedia/src/constants/environment.dart';
 import 'package:cinemapedia/src/features/movies/data/mappers/movie_mapper.dart';
-import 'package:cinemapedia/src/features/movies/data/models/moviedb_now_playing_response.dart';
+import 'package:cinemapedia/src/features/movies/data/models/moviedb_movie_detail.dart';
+import 'package:cinemapedia/src/features/movies/data/models/moviedb_movie_list.dart';
 import 'package:cinemapedia/src/features/movies/domain/movie.dart';
 import 'package:cinemapedia/src/features/movies/data/data_sources/movie_datasource.dart';
 import 'package:dio/dio.dart';
@@ -14,10 +15,19 @@ class RemoteMovieDataSource implements MovieDataSource {
         'language': 'es-MX'
       }));
 
+  List<Movie> _jsonToMovies(Map<String, dynamic> json) {
+    final movieDBResponse = MovieDBMovieList.fromJson(json);
+
+    final List<Movie> movies = movieDBResponse.results
+        .map((movie) => MovieMapper.movieDBToEntity(movie))
+        .toList();
+
+    return movies;
+  }
+
   @override
   Future<List<Movie>> getNowPlaying({int page = 1}) async {
-    final response =
-        await dio.get<Map<String, dynamic>>('/movie/now_playing',
+    final response = await dio.get<Map<String, dynamic>>('/movie/now_playing',
         queryParameters: {'page': page});
 
     final data = response.data ?? {};
@@ -35,16 +45,6 @@ class RemoteMovieDataSource implements MovieDataSource {
     final data = response.data ?? {};
 
     final movies = _jsonToMovies(data);
-
-    return movies;
-  }
-
-  List<Movie> _jsonToMovies(Map<String, dynamic> json) {
-    final movieDBResponse = MovieDbResponse.fromJson(json);
-
-    final List<Movie> movies = movieDBResponse.results
-        .map((movie) => MovieMapper.movieDBToEntity(movie))
-        .toList();
 
     return movies;
   }
@@ -71,5 +71,17 @@ class RemoteMovieDataSource implements MovieDataSource {
     final movies = _jsonToMovies(data);
 
     return movies;
+  }
+
+  @override
+  Future<Movie> getDetails(String id) async {
+    final response = await dio.get<Map<String, dynamic>>('/movie/$id');
+
+    final data = response.data ?? {};
+
+    final Movie movie =
+        MovieMapper.movieDBDetailsToEntity(MovieDbMovieDetails.fromJson(data));
+
+    return movie;
   }
 }

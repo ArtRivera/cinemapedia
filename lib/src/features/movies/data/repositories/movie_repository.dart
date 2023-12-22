@@ -10,6 +10,7 @@ abstract class _IMovieRepository {
   Future<List<Movie>> getPopular({int page = 1});
   Future<List<Movie>> getUpcoming({int page = 1});
   Future<List<Movie>> getTopRated({int page = 1});
+  Future<Movie> getDetails(String id);
 }
 
 class MovieRepository implements _IMovieRepository {
@@ -37,6 +38,11 @@ class MovieRepository implements _IMovieRepository {
   Future<List<Movie>> getUpcoming({int page = 1}) {
     return _movieDataSource.getUpcoming(page: page);
   }
+  
+  @override
+  Future<Movie> getDetails(String id) {
+    return _movieDataSource.getDetails(id);
+  }
 }
 
 // The older version of the provider.
@@ -48,7 +54,7 @@ class MovieRepository implements _IMovieRepository {
 // });
 
 // This is the provider for the movie repository.
-@riverpod
+@Riverpod(keepAlive: true)
 MovieRepository movieRepository(MovieRepositoryRef ref) {
 
   final movieDataSource = RemoteMovieDataSource();

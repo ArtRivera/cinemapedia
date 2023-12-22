@@ -1,7 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cinemapedia/src/features/movies/domain/movie.dart';
 import 'package:cinemapedia/src/helpers/human_formats.dart';
+import 'package:cinemapedia/src/router/go_router.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MovieHorizontalListView extends StatefulWidget {
   const MovieHorizontalListView(
@@ -68,7 +70,14 @@ class _MovieHorizontalListViewState extends State<MovieHorizontalListView> {
               itemBuilder: (context, index) {
                 final movie = widget.movies[index];
 
-                return FadeInRight(child: _MovieItem(movie: movie));
+                return GestureDetector(
+                    onTap: () {
+                      context.pushNamed(RoutePaths.movieDetail.name,
+                          pathParameters: {
+                            'id': movie.id.toString(),
+                          });
+                    },
+                    child: FadeInRight(child: _MovieItem(movie: movie)));
               }),
         ),
       ],

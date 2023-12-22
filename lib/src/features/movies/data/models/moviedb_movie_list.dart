@@ -1,8 +1,8 @@
 import 'package:cinemapedia/src/features/movies/data/models/movidb_movie.dart';
 import 'package:deep_pick/deep_pick.dart';
 
-class MovieDbResponse {
-  MovieDbResponse({
+class MovieDBMovieList {
+  MovieDBMovieList({
     required this.dates,
     required this.page,
     required this.results,
@@ -16,8 +16,8 @@ class MovieDbResponse {
   final int totalPages;
   final int totalResults;
 
-  factory MovieDbResponse.fromJson(Map<String, dynamic> json) =>
-      MovieDbResponse(
+  factory MovieDBMovieList.fromJson(Map<String, dynamic> json) =>
+      MovieDBMovieList(
           dates: pick(json, 'dates').letOrNull(Dates.fromPick),
           page: pick(json, 'page').asIntOrThrow(),
           results: pick(json, 'results').asListOrEmpty(MovieDBMovie.fromPick),

@@ -1,5 +1,5 @@
 import 'package:cinemapedia/src/common/common_widgets.dart';
-import 'package:cinemapedia/src/features/movies/presentation/providers/home_view_controller.dart';
+import 'package:cinemapedia/src/features/movies/presentation/controllers/home_view_controller.dart';
 import 'package:cinemapedia/src/features/movies/presentation/widgets/movie_horizontal_list_view.dart';
 import 'package:cinemapedia/src/features/movies/presentation/widgets/movie_slide_show.dart';
 import 'package:flutter/material.dart';
