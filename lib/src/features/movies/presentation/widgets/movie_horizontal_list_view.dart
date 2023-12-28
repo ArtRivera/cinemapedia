@@ -72,7 +72,8 @@ class _MovieHorizontalListViewState extends State<MovieHorizontalListView> {
 
                 return GestureDetector(
                     onTap: () {
-                      context.pushNamed(RoutePaths.movieDetail.name,
+                      context
+                          .pushNamed(Routes.movieDetail.name,
                           pathParameters: {
                             'id': movie.id.toString(),
                           });

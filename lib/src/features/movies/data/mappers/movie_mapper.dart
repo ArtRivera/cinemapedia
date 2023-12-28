@@ -1,6 +1,7 @@
 import 'package:cinemapedia/src/features/movies/data/models/movidb_movie.dart';
 import 'package:cinemapedia/src/features/movies/data/models/moviedb_movie_detail.dart';
 import 'package:cinemapedia/src/features/movies/domain/movie.dart';
+import 'package:cinemapedia/src/features/movies/domain/movie_genre.dart';
 
 class MovieMapper {
   static Movie movieDBToEntity(MovieDBMovie movie) {
@@ -15,7 +16,8 @@ class MovieMapper {
     return Movie(
         adult: movie.adult,
         backdropPath: backdropPath,
-        genreIds: movie.genreIds.map((id) => id.toString()).toList(),
+        genres:
+            movie.genreIds.map((id) => MovieGenre(id: id, name: '')).toList(),
         id: movie.id,
         originalLanguage: movie.originalLanguage,
         originalTitle: movie.originalTitle,
@@ -39,7 +41,9 @@ class MovieMapper {
     return Movie(
         adult: movie.adult,
         backdropPath: backdropPath,
-        genreIds: movie.genres.map((genre) => genre.id.toString()).toList(),
+        genres: movie.genres
+            .map((genre) => MovieGenre(id: genre.id, name: genre.name))
+            .toList(),
         id: movie.id,
         originalLanguage: movie.originalLanguage,
         originalTitle: movie.originalTitle,

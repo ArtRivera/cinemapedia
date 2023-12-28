@@ -1,7 +1,10 @@
 import 'package:cinemapedia/src/constants/environment.dart';
+import 'package:cinemapedia/src/features/movies/data/mappers/cast_mapper.dart';
 import 'package:cinemapedia/src/features/movies/data/mappers/movie_mapper.dart';
+import 'package:cinemapedia/src/features/movies/data/models/moviedb_movie_credits.dart';
 import 'package:cinemapedia/src/features/movies/data/models/moviedb_movie_detail.dart';
 import 'package:cinemapedia/src/features/movies/data/models/moviedb_movie_list.dart';
+import 'package:cinemapedia/src/features/movies/domain/actor.dart';
 import 'package:cinemapedia/src/features/movies/domain/movie.dart';
 import 'package:cinemapedia/src/features/movies/data/data_sources/movie_datasource.dart';
 import 'package:dio/dio.dart';
@@ -83,5 +86,20 @@ class RemoteMovieDataSource implements MovieDataSource {
         MovieMapper.movieDBDetailsToEntity(MovieDbMovieDetails.fromJson(data));
 
     return movie;
+  }
+
+  @override
+  Future<List<Actor>> getCredits(String id) async {
+    final response = await dio.get<Map<String, dynamic>>('/movie/$id/credits');
+
+    final data = response.data ?? {};
+
+    final movieDBCreditsCast = MovieDbMovieCredits.fromJson(data);
+
+    final List<Actor> cast = movieDBCreditsCast.cast
+        .map((e) => CastMapper.movieDBMovieCreditsToEntity(e))
+        .toList();
+
+    return cast;
   }
 }

@@ -4,6 +4,7 @@ import 'package:cinemapedia/src/features/movies/presentation/widgets/movie_horiz
 import 'package:cinemapedia/src/features/movies/presentation/widgets/movie_slide_show.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
@@ -41,9 +42,9 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     MovieHorizontalListView(
                       movies: movies.nowPlayingMovies,
                       title: 'En cines',
-                      subtitle: 'Lunes 7 de diciembre',
+                      subtitle:
+                          DateFormat.yMMMd('es_MX').format(DateTime.now()),
                       onEndReached: () {
-                        print('onEndReached');
                         ref
                             .read(moviesControllerProvider.notifier)
                             .getNowPlayingMovies();
@@ -54,7 +55,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       title: 'Más populares',
                       subtitle: 'Tendencias de la semana',
                       onEndReached: () {
-                        print('onEndReached');
                         ref
                             .read(moviesControllerProvider.notifier)
                             .getPopularMovies();
@@ -65,7 +65,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       title: 'Próximos estrenos',
                       subtitle: 'Próximo viernes',
                       onEndReached: () {
-                        print('onEndReached');
                         ref
                             .read(moviesControllerProvider.notifier)
                             .getNowPlayingMovies();

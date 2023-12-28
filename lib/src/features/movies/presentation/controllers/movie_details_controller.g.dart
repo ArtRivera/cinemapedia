@@ -154,5 +154,134 @@ class _FetchMovieDetailsProviderElement extends FutureProviderElement<Movie>
   @override
   String get movieId => (origin as FetchMovieDetailsProvider).movieId;
 }
+
+String _$fetchMovieCastHash() => r'1c58583bc73afe8755eefa60819d2dc0a6ba0c7b';
+
+/// See also [fetchMovieCast].
+@ProviderFor(fetchMovieCast)
+const fetchMovieCastProvider = FetchMovieCastFamily();
+
+/// See also [fetchMovieCast].
+class FetchMovieCastFamily extends Family<AsyncValue<List<Actor>>> {
+  /// See also [fetchMovieCast].
+  const FetchMovieCastFamily();
+
+  /// See also [fetchMovieCast].
+  FetchMovieCastProvider call(
+    String movieId,
+  ) {
+    return FetchMovieCastProvider(
+      movieId,
+    );
+  }
+
+  @override
+  FetchMovieCastProvider getProviderOverride(
+    covariant FetchMovieCastProvider provider,
+  ) {
+    return call(
+      provider.movieId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'fetchMovieCastProvider';
+}
+
+/// See also [fetchMovieCast].
+class FetchMovieCastProvider extends AutoDisposeFutureProvider<List<Actor>> {
+  /// See also [fetchMovieCast].
+  FetchMovieCastProvider(
+    String movieId,
+  ) : this._internal(
+          (ref) => fetchMovieCast(
+            ref as FetchMovieCastRef,
+            movieId,
+          ),
+          from: fetchMovieCastProvider,
+          name: r'fetchMovieCastProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$fetchMovieCastHash,
+          dependencies: FetchMovieCastFamily._dependencies,
+          allTransitiveDependencies:
+              FetchMovieCastFamily._allTransitiveDependencies,
+          movieId: movieId,
+        );
+
+  FetchMovieCastProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.movieId,
+  }) : super.internal();
+
+  final String movieId;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<Actor>> Function(FetchMovieCastRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: FetchMovieCastProvider._internal(
+        (ref) => create(ref as FetchMovieCastRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        movieId: movieId,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<Actor>> createElement() {
+    return _FetchMovieCastProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is FetchMovieCastProvider && other.movieId == movieId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, movieId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+mixin FetchMovieCastRef on AutoDisposeFutureProviderRef<List<Actor>> {
+  /// The parameter `movieId` of this provider.
+  String get movieId;
+}
+
+class _FetchMovieCastProviderElement
+    extends AutoDisposeFutureProviderElement<List<Actor>>
+    with FetchMovieCastRef {
+  _FetchMovieCastProviderElement(super.provider);
+
+  @override
+  String get movieId => (origin as FetchMovieCastProvider).movieId;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

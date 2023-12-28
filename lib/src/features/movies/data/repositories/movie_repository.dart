@@ -1,5 +1,6 @@
 import 'package:cinemapedia/src/features/movies/data/data_sources/movie_datasource.dart';
 import 'package:cinemapedia/src/features/movies/data/data_sources/remote_movie_datasource.dart';
+import 'package:cinemapedia/src/features/movies/domain/actor.dart';
 import 'package:cinemapedia/src/features/movies/domain/movie.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -11,6 +12,7 @@ abstract class _IMovieRepository {
   Future<List<Movie>> getUpcoming({int page = 1});
   Future<List<Movie>> getTopRated({int page = 1});
   Future<Movie> getDetails(String id);
+  Future<List<Actor>> getCredits(String id);
 }
 
 class MovieRepository implements _IMovieRepository {
@@ -42,6 +44,11 @@ class MovieRepository implements _IMovieRepository {
   @override
   Future<Movie> getDetails(String id) {
     return _movieDataSource.getDetails(id);
+  }
+  
+  @override
+  Future<List<Actor>> getCredits(String id) {
+    return _movieDataSource.getCredits(id);
   }
 }
 
